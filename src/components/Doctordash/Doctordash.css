@@ -1,0 +1,90 @@
+.privatekey{
+    margin-top: 30px;
+    margin-left: 30%;
+    color: white;
+    background-color: rgb(10, 75, 100);
+    width: 20%;
+    height: 30px;
+    border-radius: 10px;
+}
+h4{
+    font-family: 'Arial';
+}
+.space {
+    margin-top: -35px;
+    color: lightcoral;
+}
+.head {
+    font-weight: 40px ;
+    color: rgb(9, 5, 77);
+    text-align: left;
+    text-shadow: 2px 2px lightblue;
+    font-size: 25px;
+}
+.data {
+    font-weight: 20px;
+    text-align: left;
+    font-size: 25px;
+    color: black;
+}
+h2 {
+    color: rgb(2, 2, 65);
+}
+.welcome {
+    margin-bottom: 40px;
+    color: rgb(2, 2, 65);
+}
+.jug
+{
+    margin-left: 20%;
+    margin-top: -8%;
+    
+}
+.tab {
+    padding-left: 140px;
+    font-size: 20px;
+    color: black;
+}
+.tab1 {
+    padding-left: 70px;
+    font-size: 20px;
+    color: black;
+}
+.tab2 {
+    padding-left: 160px;
+    font-size: 20px;
+    color: black;
+}
+.appointment {
+    color: white;
+    background-color: rgb(10, 75, 100);
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    margin-left: 30px;
+}
+.tabh {
+    font-size: 25px;
+    padding-left: 15px;
+    color: darkblue;
+    text-shadow: 2px 2px lightblue;
+
+}
+.tabhx {
+    padding-left: 60px;
+    font-size: 20px;
+    color: black;
+
+}
+.tabx {
+    padding-left: 155px;
+    font-size: 20px;
+    color: black;
+}
+.contain {
+    margin-top: 40px;
+}
+.stylep {
+    margin-left: 80px;
+    color: black;
+}

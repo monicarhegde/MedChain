@@ -1,0 +1,94 @@
+.welcome {
+    margin-bottom: 40px;
+    color: rgb(2, 2, 65);
+}
+.privatekey{
+    margin-top: 30px;
+    margin-left: 30%;
+    color: white;
+    background-color: rgb(10, 75, 100);
+    width: 20%;
+    height: 30px;
+    border-radius: 10px;
+}
+.appointment {
+    color: white;
+    background-color: rgb(10, 75, 100);
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    margin-left: 60px;
+}
+.tablestyle {
+    padding: 30px;
+}
+.tabdata {
+    padding-left: 100px;
+    font-size: 20px;
+    color: black;
+}
+.idata {
+    padding-left: 30px;
+    color: black;
+    font-size: 20px;
+}
+.repclass {
+    padding-left: 30px;
+    color: darkblue;
+    text-shadow: 2px 2px lightblue;
+    font-size: 20px;
+}
+.iddata {
+ padding-left: 120px;
+ color: black;
+ font-size: 20px;
+}
+.appoint {
+padding-left: 90px;
+color: black;
+font-size: 20px;
+}
+.appname {
+    padding-left: 30px;
+    color: darkblue;
+    text-shadow: 2px 2px lightblue;
+    font-size: 20px;
+}
+.appclass {
+    padding-left: 20px;
+    color: darkblue;
+    text-shadow: 2px 2px lightblue;
+    font-size: 20px;
+}
+.docid {
+    color: darkblue;
+    text-shadow: 2px 2px lightblue;
+    font-size: 20px;
+}
+.tabreport {
+    color: darkblue;
+    text-shadow: 2px 2px lightblue;
+    font-size: 20px;
+}
+.access {
+    color: darkblue;
+    text-shadow: 2px 2px lightblue;
+    font-size: 20px;
+    
+}
+.access2 {
+    color: darkblue;
+    text-shadow: 2px 2px lightblue;
+    font-size: 20px;
+    
+}
+.accessd1 {
+    color: black;
+    font-size: 20px;
+    padding-left: 20px;
+}
+.accessd {
+    color: black;
+    font-size: 20px;
+    padding-left: 80px;
+}
