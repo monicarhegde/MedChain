@@ -1,0 +1,39 @@
+.testimage {
+    width: 40%;
+   
+
+}
+.about
+{
+    width: 30%;
+    float: right;
+    margin-top: 50px;
+}
+body {
+    background-color: rgb(7, 52, 80);
+}
+.contactus {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.testimage1 {
+    width: 10%;
+
+}
+.contact1 {
+}
+.contact2 {
+
+}
+.loginbutton {
+    margin-top: 500px;
+    margin-left: 40%;
+    color: white;
+    background-color: rgb(10, 75, 100);
+    width: 20%;
+    height: 30px;
+    border-radius: 10px;
+    
+
+}

@@ -120,11 +120,11 @@ return (
            <label htmlFor='keepFilename'><input type='checkbox' id='keepFilename' name='keepFilename' /> keep filename</label>
 		</form>
 		<div>
-		<label>Hash(Note: Please copy the hash that will be generated after choosing file into the input box below)</label><a target='_blank'
+		<label>Hash:</label><a target='_blank'
 			href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
 			{this.state.added_file_hash}</a>
 		</div>
-		<input type="text" name="filehash" placeholder="File Hash" onChange={this.onChange} />
+		<input type="text" name="filehash" placeholder="File Hash" value={this.state.added_file_hash} onChange={this.onChange} />
 		<input type="submit" className="button" value="Sign Up" onClick={this.signup}/>
 	</TabPanel>
 </Tabs>

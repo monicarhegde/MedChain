@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {PostData} from '../../services/PostData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import './Login.css'
 class Login extends Component {
 constructor(){
@@ -12,6 +14,7 @@ redirectToReferrer: false,
 redirectToReferrerr: false,
 redirectToReferrerz: false,
 redirectToManage: false,
+backToHome: false,
 };
 this.data = {};
 this.login = this.login.bind(this);
@@ -62,16 +65,26 @@ else if(this.state.redirectToManage)
 {
 	return(<Redirect to={'/management'}/>)
 }
+else if(this.state.backToHome)
+{
+	return(<Redirect to={'/'}/>)
+}
 
 
 return (
+	<div>
+	<button class="backtohome" onClick={(event)=>{
+		this.setState({backToHome: true})
+	}}><FontAwesomeIcon icon={faHome} /> Home</button>
 <div className="row" id="Body">
 <div className="monica">
+
 <h4>Login</h4>
 <input type="text" name="username" placeholder="Username" onChange={this.onChange}/>
 <input type="password" name="password" placeholder="Password" onChange={this.onChange}/>
 <div class="btnstyle"><input type="submit" className="button" value="Login" onClick={this.login}/></div>
 <p class="para">Not yet a member ? <a href="/signdoc">  Register</a></p>
+</div>
 </div>
 </div>
 );

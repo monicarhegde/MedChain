@@ -14,10 +14,12 @@ import viewReports from '././components/viewReports/viewReports';
 import management from '././components/management/management';
 import showpatient from '././components/showpatient/showpatient';
 import viewprescription from '././components/viewprescription/viewprescription';
+import Homepage from '././components/Homepage/Homepage';
 const Routes = () => (
 <BrowserRouter >
 <Switch>
-<Route exact path="/" component={Login}/>
+
+<Route exact path="/" component={Homepage}/>
 <Route path="/home" component={Home}/>
 <Route path="/login" component={Login}/>
 <Route path="/LoginAdmin" component={LoginAdmin}/>

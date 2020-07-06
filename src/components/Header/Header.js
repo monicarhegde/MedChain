@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import logo from './images.png';
 import './Header.css';
+import nittelogo from './nitte ryt white.png';
 class Header extends Component {
 render() {
     // var imgdata=document.createElement("img");
@@ -9,7 +11,9 @@ render() {
 return (
 <div className="callout headcolor" id="Header">
 <div className="row column">
-<h1>MedChain</h1>
+<img class="logo"src= {logo} alt="pic" />
+<img class="nittelogo"src= {nittelogo} alt="pic" />
+<h1 class="title">MedicoChain</h1>
 {/* <div id='x'></div> */}
 </div>
 </div>
