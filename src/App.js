@@ -79,7 +79,7 @@ class App extends Component {
       constructor(props) {
         super(props)
         this.state = {
-            appName: "ReactJS Feed Example",
+            appName: "MedicoChain",
             home: false,
           account: '',
           acc: '',

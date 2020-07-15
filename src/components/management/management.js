@@ -12,6 +12,9 @@ import Login from '../../components/Login/Login';
 import Web3 from 'web3';
 import Marketplace from '../../abis/Marketplace.json';
 import './management.css';
+import patimg from './person1.png';
+import { faSearch} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class management extends Component{
     async componentWillMount() {
@@ -191,7 +194,7 @@ class management extends Component{
         this.dataSearch =JSON.parse(sessionStorage.getItem('patientSearch'));
         return(
           <div> 
-          <h1 class="welcome">WELCOME</h1>
+          <h1 class="welcome1">Management Profile</h1>
           <h5 class="enter">Enter Patient ID</h5>
           <a href="/login" onClick={this.logout} className="logoutclass">Logout</a>
           
@@ -199,7 +202,7 @@ class management extends Component{
             <div >
                 
                 <input type="text"  class="inputbox" name="patidToSearch" placeholder="Enter Patient ID Here" onChange={this.change}/>
-                <input type="submit" class="butsearch" value="Search" onClick={this.search}/>
+                <button class="butsearch" onClick={this.search}><FontAwesomeIcon icon={faSearch} /> Search</button>
                 <a href="/showpatient" className="showpat" >Show All Patients</a>
                 
             </div>
@@ -214,24 +217,15 @@ class management extends Component{
                     <Tab>Prescriptions</Tab>
                     </TabList>
                     <TabPanel>
-                      <table>
-                      <tr>
-                          <th class="head">PATIENT ID:</th>
-                          <td class="data">{this.state.patidToSearch}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">PATIENT NAME:</th>
-                          <td class="data">{this.dataSearch.name}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">ADDRESS:</th>
-                          <td class="data">{this.dataSearch.addr}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">BLOODGROUP:</th>
-                          <td class="data">{this.dataSearch.blood}</td>
-                        </tr>
-                      </table>
+                    
+                      <div class="mgmtdiv">
+                        <img class="patimg" src={patimg} alt="pic"/>
+                        <h5 class="patdets1">Patient ID : {this.state.patidToSearch}<br/>
+                        Patient Name : {this.dataSearch.name}<br/>
+                        Address : {this.dataSearch.addr}<br/>
+                        Bloodgroup : {this.dataSearch.blood}</h5>
+                      </div>
+                      
                     
                     
                     </TabPanel>

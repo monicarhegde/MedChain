@@ -15,6 +15,9 @@ import management from '././components/management/management';
 import showpatient from '././components/showpatient/showpatient';
 import viewprescription from '././components/viewprescription/viewprescription';
 import Homepage from '././components/Homepage/Homepage';
+import forgotpassword from './components/forgotpassword/forgotpassword';
+import resetpage from './components/ResetPage/resetpage';
+import otp from './components/VerifyOtp/otp';
 const Routes = () => (
 <BrowserRouter >
 <Switch>
@@ -22,6 +25,8 @@ const Routes = () => (
 <Route exact path="/" component={Homepage}/>
 <Route path="/home" component={Home}/>
 <Route path="/login" component={Login}/>
+<Route path="/otp" component={otp}/>
+<Route path="/resetpage" component={resetpage}/>
 <Route path="/LoginAdmin" component={LoginAdmin}/>
 <Route path="/Admindash" component={Admindash}/>
 <Route path="/management" component={management}/>
@@ -32,6 +37,7 @@ const Routes = () => (
 <Route path="/viewReports" component={viewReports}/>
 <Route path="/showpatient" component={showpatient}/>
 <Route path="/viewprescription" component={viewprescription}/>
+<Route path="/forgotpassword" component={forgotpassword}/>
 <Route path="*" component={NotFound}/>
 
 </Switch>

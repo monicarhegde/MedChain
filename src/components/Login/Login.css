@@ -1,9 +1,10 @@
 
 .monica
 {
-    margin-left: 35%;
-    margin-top: 5%;
+    margin-left: 60%;
+    margin-top: -30%;
     width:30%;
+    
 }
 .btnstyle {
     color: white;
@@ -16,11 +17,26 @@
 .backtohome
 {
     margin-top: 20px;
-    margin-right: 30px;
+    margin-right: 180px;
     float: right;
     color: white;
     background-color: rgb(30, 148, 226);
     width: 10%;
     height: 30px;
     border-radius: 10px;
+}
+.login
+{
+    width: 30%;
+    height: 50%;
+    margin-left: 20%;
+    margin-top: 10%;
+    
+}
+.lock
+{
+    backgroundColor: red;
+}
+.whole {
+    height: 650px;
 }

@@ -14,7 +14,7 @@ password: '',
 name: '',
 spec:'',
 address: '',
-bloodgrp: '',
+email: '',
 added_file_hash: null,
 filehash: '',
 redirectToReferrer: false
@@ -113,7 +113,7 @@ return (
 		<input type="text" name="username" placeholder="Username" onChange={this.onChange}/>
 		<input type="password" name="password" placeholder="Password" onChange={this.onChange}/>
     <input type="text" name="spec" placeholder="Specialization" onChange={this.onChange}/>
-		<input type="text" name="bloodgrp" placeholder="Blood Group" onChange={this.onChange}/>
+		<input type="text" name="email" placeholder="Email" onChange={this.onChange}/>
 		<textarea name="address" rows="5" cols="20" placeholder="Address" onChange={this.onChange}/>
 		<form id='captureMedia' onSubmit={this.handleSubmit}>
            <input type='file' onChange={this.captureFile} /><br/>

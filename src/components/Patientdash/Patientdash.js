@@ -12,7 +12,18 @@ import 'react-tabs/style/react-tabs.css';
 import Login from '../../components/Login/Login';
 import Web3 from 'web3';
 import Marketplace from '../../abis/Marketplace.json';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfo, faThumbsUp , faHandPointLeft, faEnvelope , faSearch, faThumbsDown, faPrescription } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt , faMapMarker, faIdBadge , faTint , faAddressCard, faMapMarkerAlt, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import { faBook} from '@fortawesome/free-solid-svg-icons';
+import Card from '@material-ui/core/Card';
+import pat from './patient.png';
+import CardContent from '@material-ui/core/CardContent';
+import doctorimg from './doc2.png';
+import fileimg from './file1.png';
+import report1 from './file2.png';
+import prescription from './prescription.png';
+import paticon from './patient1.png';
 class Doctordash extends Component {
   async componentWillMount() {
     await this.loadWeb3()
@@ -108,11 +119,16 @@ patCount:0 ,
 doctors:[],
 reports:[],
 pid: 0,
+docToSearch: '',
 redirectToReferrerz: false,
+search : false,
+docSearched :[],
+showsearched:false,
 };
 
 this.logout = this.logout.bind(this);
 this.grantAccess=this.grantAccess.bind(this);
+this.searchChange=this.searchChange.bind(this);
 }
 
 componentDidMount() {
@@ -146,30 +162,14 @@ grantAccess() {
    })
    
 
-/*
-  let data = JSON.parse(sessionStorage.getItem('userData'));
-  console.log(data.id)
-  let grant ={
-    pid: data.id,
-  }
-  if(data.id){
-    PostData('grantAccess',grant).then((result) => {
-      let responseJson = result;
-if(responseJson.userData){
-let jsondata = JSON.stringify(responseJson.userData);
-console.log(jsondata)
-sessionStorage.setItem('fileData',jsondata);
-let filedata = JSON.parse(sessionStorage.getItem('fileData'));
-//console.log(filedata)
 }
 
-   
-    }
-    );
-    }*/
-
-
+searchChange(e)
+{
+  this.setState({[e.target.name]:e.target.value});
+  this.setState({search:true});
 }
+
 bookAppointment(id1,id2) {
         
   //this.setState({ loading: true })
@@ -197,62 +197,40 @@ return (<Redirect to={'/login'}/>)
 return (
 <div className="row" id="Body">
 <div className="medium-12 columns">
-<h1 class="welcome"> Welcome {
-  this.state.patients.map((patient)=> {
-    return(patient.name)
-  })
-}</h1>
-<a href="#" onClick={this.logout} className="logout">Logout</a>
+<img class="paticon" src= {paticon} alt="pic" />
+<h2 class="patprofile">Patient Profile</h2>
+<a href="#" onClick={this.logout} className="logout"><FontAwesomeIcon icon={faHandPointLeft} /> Logout</a>
 
 <Tabs>
     <TabList>
-      <Tab>View details</Tab>
-	  <Tab>Get Appointment</Tab>
-	  <Tab>View Reports</Tab>
-	  <Tab>Grant Access</Tab>
+      <Tab><FontAwesomeIcon icon={faInfo} /> View details</Tab>
+	  <Tab><FontAwesomeIcon icon={faCalendarAlt} /> Get Appointment</Tab>
+	  <Tab><FontAwesomeIcon icon={faBook} /> View Reports</Tab>
+	  <Tab><FontAwesomeIcon icon={faThumbsUp} /> Grant Access</Tab>
     </TabList>
     
      
     <TabPanel>
-      <h2>Account Details</h2>
-      { 
-        this.state.patients.map((patient)=> {
-          return(
-            <div>
-              <table>
-                <tr>
-                  <th class="head">PATIENT ID :</th>
-                  <td class="data">{docdata.id}</td>
-                </tr>
-                <tr>
-                  <th class="head">NAME :</th>
-                  <td class="data">{patient.name}</td>
-                </tr>
-                <tr>
-                  <th class="head">ACCOUNT ADDRESS :</th>
-                  <td class="data">{patient.patacc}</td>
-                </tr>
-                <tr>
-                  <th class="head">EMAIL :</th>
-                  <td class="data">{patient.email}</td>
-                </tr>
-                <tr>
-                  <th class="head">BLOOD GROUP :</th>
-                  <td class="data">{patient.blood}</td>
-                </tr>
-                <tr>
-                  <th class="head">ADDRESS :</th>
-                  <td class="data">{patient.addr}</td>
-                </tr>
-              </table>
-           
-           
-           </div>
-            
-          )
-        })
-      }
-      <button class="privatekey" onClick= {(event)=>{
+
+    <h3>My Profile</h3>
+      
+      { this.state.patients.map((patient)=> { 
+                  return(
+                    <div>
+      <Card class="card1">
+      <CardContent>
+        <div class="updiv"></div>
+        <center><img class="patround" src= {pat} alt="pic" /></center>
+        <center>
+          <h4>{patient.name}</h4>
+        <h6><FontAwesomeIcon icon={faMapMarkerAlt} /> {patient.addr}</h6></center>
+        <p class="content">
+        Patient ID <FontAwesomeIcon icon={faIdBadge} /> : {docdata.id}<br/>
+        Email <FontAwesomeIcon icon={faEnvelope} /> : {patient.email}<br/>
+        Blood Group <FontAwesomeIcon icon={faTint} /> : {patient.blood} <br/>
+        Account Address <FontAwesomeIcon icon={faAddressCard} /> :<br/> {patient.patacc}<br/>
+        </p>
+        <center><button class="privatekey" onClick= {(event)=>{
           var val=prompt("Please enter your password")
           if(val==docdata.password)
           { this.state.patients.map((patient,key)=> { 
@@ -267,102 +245,122 @@ return (
       }
     }> Get Private Key
 
-      </button>
+      </button></center>
+        
+      </CardContent>
+    </Card>
+                  
+                  </div>
+
+)
+})
+}
+
     </TabPanel>
 	<TabPanel>
-      <h2>Get Appointment</h2>
-      <table>
-              <tr>
-                <th class="docid">DOCTOR ID</th>
-                <th class="appname">NAME</th>
-                <th class="appclass">SPECIALIZATION</th>
-                <th class="appclass">BLOOD GROUP</th>
-                <th class="appclass">ADDRESS</th>
-              </tr>
-       </table>
+      <h3>Get Appointments</h3>
+      <div class="searchdiv">
+      <input type= "text" name="docToSearch" placeholder="Search..." class="docsearch" onChange={this.searchChange}/>
+      <button class="searchbut" onClick={(event)=>{
+        console.log(this.state.docToSearch)
+        if(this.state.docToSearch)
+        {
+          this.setState({showsearched: true});
+        }
+      }}><FontAwesomeIcon icon={faSearch} /></button>
+      <button  class="closeicon" onClick={(event)=>
       {
+        this.setState({showsearched:false});
+      }}><FontAwesomeIcon icon={faTimesCircle}/></button></div> 
+     
+      {
+        
         this.state.doctors.map((doctor)=> {
-          return (
-            <table class="tablestyle">
-              <tr>
-                <td class="idata">{parseInt(doctor.id._hex)}</td>
-                <td class="appoint">{doctor.name}</td>
-                <td class="appoint">{doctor.spec}</td>
-                <td class="iddata">{doctor.blood}</td>
-                <td class="iddata">{doctor.addr}</td>
-                <td>
-                <button class="appointment"
-                    onClick=
-                      {
-                       (event)=>{
-                          const val1=docdata.id;
-                          const val2=doctor.id;
-                          this.bookAppointment(val1,val2);
-          }
-        }>Book Appointment
-           </button>
-                </td>
-              </tr>
-            </table>
-          )
+
+          if(this.state.showsearched)
+            {
+              if(doctor.name==this.state.docToSearch || doctor.spec == this.state.docToSearch)
+                {
+                  return (
+                    <div class="aptcards">
+                      <img class="docimg" src ={doctorimg} alt="pic" />
+                         <h4 class="patname">Dr. {doctor.name}</h4>
+                         <h6 class="patspec">{doctor.spec}, <FontAwesomeIcon icon={faMapMarkerAlt} /> {doctor.addr} </h6>
+                         <button class="bookapt"
+                            onClick=
+                              {
+                               (event)=>{
+                                  const val1=docdata.id;
+                                  const val2=doctor.id;
+                                  this.bookAppointment(val1,val2);
+                  }
+                }>Book Appointment
+                   </button>
+                    </div>
+                      
+                  )
+                }
+              
+            }
+            else{
+              return (
+                <div class="aptcards">
+                  <img class="docimg" src ={doctorimg} alt="pic" />
+                     <h4 class="patname">Dr. {doctor.name}</h4>
+                     <h6 class="patspec">{doctor.spec}, <FontAwesomeIcon icon={faMapMarkerAlt} /> {doctor.addr} </h6>
+                     <button class="bookapt"
+                        onClick=
+                          {
+                           (event)=>{
+                              const val1=docdata.id;
+                              const val2=doctor.id;
+                              this.bookAppointment(val1,val2);
+              }
+            }>Book Appointment
+               </button>
+                </div>
+                  
+              )
+            }
+          
         })
       }
 
 
     </TabPanel>
 	<TabPanel>
-      <h2>View Reports</h2>
-      <table>
-        <tr>
-          <th class="tabreport">DOCTOR ID</th>
-          <th class="tabreport">DOCTOR NAME</th>
-          <th class="tabreport">REPORT NAME</th>
-          <th class="repclass">REPORT</th>
-        </tr>
-      </table>
+      <h3>View Reports</h3>
+      <br/>
+    
       {
         this.state.reports.map((rep)=> {
           return(
-            <div>
-              <table>
-              <tr>
-                <td class="idata">{parseInt(rep.docid)}</td>
-                <td class="tabdata">{rep.docname}</td>
-                <td class="tabdata">{rep.repname}</td>
-                <td class="tabdata"><a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + rep.hash}>{ rep.hash }</a></td>
-              </tr>
-              </table>
-            </div>
+              <div class="repcards">
+      <img class = "fileimg" src={fileimg} alt="pic"/>
+      <p class="repdetails">Uploaded by : Dr. {rep.docname} <br/>
+      Report : {rep.repname}</p>
+      <p class="repfile">File : <a target='_blank'
+                   href={'https://ipfs.io/ipfs/' + rep.hash}>{ rep.hash }</a></p>
+      </div>
           )
         })
       }
     </TabPanel>
 	<TabPanel>
-      <h2>Grant Access</h2>
-      <table>
-        <tr>
-          <th class="access2">DOCTOR ID</th>
-          <th class="access">DOCTOR NAME</th>
-          <th class="access">REPORT NAME</th>
-          <th class="access">FILE HASH</th>
-        </tr>
-      </table>
+      <h3>Grant Access</h3>
 {
   this.state.contacts.map((contacts)=> {
       if(this.state.pid==contacts.pat_id && contacts.ind)
       {
         return(
           <div>
-            <p>Report Requests</p>
-            <table>
-              <tr>
-                <td class="accessd1">{contacts.doc_id}</td>
-                <td class="accessd">{contacts.dname}</td>
-                <td class="accessd">{contacts.name}</td>
-                <td class="accessd"><a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></td>
-                <button class="appointment" onClick={(event)=>
+            <h4>Report Requests</h4>
+            <div class="grantcards">
+            <img class="grantrep" src={report1} alt="pic"/>
+            <p class="grantdet">Access to : Dr. {contacts.dname} <br/> Report : {contacts.name}</p>
+            <p class="grantfile">File : <a target='_blank'
+                   href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></p>
+            <button class="accept" onClick={(event)=>
                 {
                   let data1 = {
                     did: contacts.doc_id,
@@ -383,12 +381,11 @@ return (
                    }
                    );
                    }
-                }}>Grant Access
-
-                </button>
-                
-              </tr>
-            </table>
+                }}><FontAwesomeIcon icon={faThumbsUp}/> Accept</button>
+            <button class="reject" onClick={(event)=>{
+              alert("Access rejected!");
+            }}><FontAwesomeIcon icon={faThumbsDown}/> Reject</button>
+            </div>
           </div>
         )
       }
@@ -396,15 +393,13 @@ return (
       {
         return(
           <div>
-            <p>Prescription Requests</p>
-            <table>
-              <tr>
-                <td class="accessd1">{contacts.doc_id}</td>
-                <td class="accessd">{contacts.dname}</td>
-                <td class="accessd">{contacts.name}</td>
-                <td class="accessd"><a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></td>
-                <button class="appointment" onClick={(event)=>
+            <h4>Prescription Requests</h4>
+            <div class="grantcards">
+            <img class="grantrep" src={[prescription]} alt="pic"/>
+            <p class="grantdet">Prescribed by : Dr. {contacts.dname} <br/> Prescription : {contacts.name}</p>
+            <p class="grantfile">File : <a target='_blank'
+                   href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></p>
+            <button class="accept" onClick={(event)=>
                 {
                   let data1 = {
                     did: contacts.doc_id,
@@ -425,12 +420,14 @@ return (
                    }
                    );
                    }
-                }}>Grant Access
+                }}><FontAwesomeIcon icon={faThumbsUp}/> Accept
 
                 </button>
                 
-              </tr>
-            </table>
+            <button class="reject" onClick={(event)=>{
+              alert("Access rejected!");
+            }}><FontAwesomeIcon icon={faThumbsDown}/> Reject</button>
+            </div>
           </div>
         )
       }

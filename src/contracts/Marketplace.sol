@@ -65,7 +65,7 @@ string public patientname;
         uint id;
         string name;
         string spec;
-        string blood;
+        string email;
         string addr;
         string filehash;
         address payable docacc;
@@ -77,7 +77,7 @@ string public patientname;
         uint id,
         string name,
         string spec,
-        string blood,
+        string email,
         string addr,
         string filehash,
         address payable docacc,

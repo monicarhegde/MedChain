@@ -21,7 +21,7 @@ console.log(data)
     return(
     <div>
         <h3 class="det1" >Report Details</h3>
-        <h4 class="det">Uploaded by: {data.docname}</h4>
+        <h4 class="det">Uploaded by: Dr. {data.docname}</h4>
         <h4 class="det">Report Name: {data.file}</h4>
         <h4 class="det">Report: <a target='_blank'
                    href={'https://ipfs.io/ipfs/' + data.filehash}>{ data.filehash }</a></h4>

@@ -9,7 +9,9 @@ import axios from 'axios';
 import Linkify from 'react-linkify';
 import Web3 from 'web3';
 import Marketplace from '../../abis/Marketplace.json';
-
+import docimg from './doc2.png';
+import { faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Admindash extends Component {
 	async componentWillMount() {
@@ -75,12 +77,12 @@ componentDidMount() {
       console.log(this.state.contacts)
      })
   }
-  createDoctor(id,name,spec,bloodgrp,addr,hash) {
+  createDoctor(id,name,spec,email,addr,hash) {
 	console.log("in the function createDoctor")
 	let doc=window.web3.eth.accounts.create();
 	console.log(doc.address)
 	console.log(doc)
-	this.state.marketplace.methods.createDoctor(id,name,spec,bloodgrp,addr,hash,doc.address,doc.privateKey).send({from : this.state.account})
+	this.state.marketplace.methods.createDoctor(id,name,spec,email,addr,hash,doc.address,doc.privateKey).send({from : this.state.account})
 	.once('receipt', (receipt) => {
 	  //this.setState({ loading: false })
 	})
@@ -98,47 +100,38 @@ if (this.state.redirectToReferrer) {
 return (<Redirect to={'/login'}/>)
 }
 return (
-<div class="flex-container">
+<div class="maindiv">
 
 <div className="row" id="Body">
 <div className="medium-12 columns">
-<h1> Welcome Admin </h1>
+<h1 class="welcome1"> Admin Profile </h1>
 <a href="#" onClick={this.logout} className="logout">Logout</a>
-<React.Fragment>
-
-		<h1>Doctors listing</h1>
-        <table border='1' width='105%' margin-right="20px" padding="10px" text-align="center">
-        <tr>
-            <th>Doctor ID</th>
-			<th>Name</th>
-			<th>Username</th>
-			<th>Password</th>
-      <th>Specialization</th>
-            <th>Address</th>
-            <th>Blood Group</th>
-            <th>File Hash</th>
-			<th>Approval</th>
-        </tr>
-
-        {this.state.contacts.map((contacts) => (
-        
-		<tr>
-            <td>{ contacts.doc_id}</td>
-            <td>{ contacts.name }</td>
-			<td>{ contacts.username }</td>
-			<td>{ contacts.password }</td>
-      <td>{contacts.spec}</td>
-            <td>{ contacts.address }</td>
-            <td>{ contacts.bloodgrp }</td>
-			<td><a target='_blank'
-    href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></td>
-			<td><input type="submit" className="button" onClick={ (event) =>
+		<h3 class="docverify">Doctor Verification</h3>
+        {
+          this.state.contacts.map((contacts) => (
+          <div class="doctotlist">
+          <img class="docadmin" src={docimg} alt="pic"/>
+          <p class="doctordetailsp">
+          Name : { contacts.name }<br/>
+          Doctor ID : { contacts.doc_id}<br/>
+          Specialization : {contacts.spec}<br/>
+          Address : {contacts.address}<br/>
+          Username : {contacts.username}<br/>
+          Password : {contacts.password}<br/>
+          Email : {contacts.email}<br/>
+          </p>
+          <p class="verify">
+          Certificate : <a target='_blank'
+    href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a>
+          </p>
+          <button class="acceptdoc" onClick={ (event) =>
 				{
 					
 					let did = parseInt(contacts.doc_id);
 					let uname = contacts.username;
-					let pword = contacts.password;
-					this.postData = {doct_id:did,username:uname,pasword:pword};
+          let pword = contacts.password;
+          let docemail=contacts.email;
+					this.postData = {doct_id:did,username:uname,pasword:pword,email:docemail};
 					PostData('changestat', this.postData).then((result) => {
 						
 						
@@ -146,7 +139,7 @@ return (
 					if(result.success)
 					{
 					alert(result.success);
-					this.createDoctor(contacts.doc_id,contacts.name,contacts.spec,contacts.bloodgrp,contacts.address,contacts.filehash)
+					this.createDoctor(contacts.doc_id,contacts.name,contacts.spec,contacts.email,contacts.address,contacts.filehash)
 					}
 					else
 					alert(result.error)
@@ -154,14 +147,17 @@ return (
 				);
 				}
 				} 
-			value="YES" /><input type="submit" className="button" onClick = { (event) =>
+		 > <FontAwesomeIcon icon={faThumbsUp}/> Accept
+       </button><button class="rejectdoc" onClick = { (event) =>
 				{
 					alert("Doctor not approved");
-			} }value="NO" /></td>
-        </tr>
+			} }><FontAwesomeIcon icon={faThumbsDown}/> Reject</button>
+            
+          </div>
+        
+		
         ))}
-        </table>
-</React.Fragment>
+
 </div>
 </div>
 <div>

@@ -12,6 +12,26 @@ import 'react-tabs/style/react-tabs.css';
 import Login from '../../components/Login/Login';
 import Web3 from 'web3';
 import Marketplace from '../../abis/Marketplace.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfo, faMapMarker, faMapMarkerAlt, faIdBadge ,faFileAlt} from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { faListAlt , faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTint } from '@fortawesome/free-solid-svg-icons';
+import { faHandPointLeft } from '@fortawesome/free-solid-svg-icons';
+import doc from './doc2.png';
+import pat from './pat1.png';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import docround from './docround.png';
+import fileimg from './file1.png';
+import prescription from './prescription.png';
+
 const ipfsClient = require('ipfs-http-client')
 class Doctordash extends Component {
   async componentWillMount() {
@@ -132,11 +152,15 @@ did: 0,
 redirect: false,
 presci:[],
 redirectprescribe: false,
+prehash: null,
 };
 this.data = {};
 this.ipfs = ipfsClient('/ip4/127.0.0.1/tcp/5001');
 this.captureFile = this.captureFile.bind(this);
+this.captureFile1 = this.captureFile1.bind(this);
 this.saveToIpfs = this.saveToIpfs.bind(this);
+this.saveToIpfs1 = this.saveToIpfs1.bind(this);
+
 this.handleSubmit = this.handleSubmit.bind(this);
 this.logout = this.logout.bind(this);
 this.onChange = this.onChange.bind(this);
@@ -176,18 +200,34 @@ grantAccess() {
       window.flag=0;
      }
    })
-   
   }
 
-captureFile(event) {
-  event.stopPropagation()
-  event.preventDefault()
-  if (document.getElementById('keepFilename').checked) {
-    this.saveToIpfsWithFilename(event.target.files)
-  } else {
-    this.saveToIpfs(event.target.files)
+
+  captureFile(event) {
+    event.stopPropagation()
+    event.preventDefault()
+    if (document.getElementById('keepFilename').checked) {
+      this.saveToIpfsWithFilename(event.target.files)
+    } else {
+      this.saveToIpfs(event.target.files)
+    }
   }
-}
+
+  captureFile1(event) {
+    event.stopPropagation()
+    event.preventDefault()
+    if (document.getElementById('keepFilename').checked) {
+      this.saveToIpfsWithFilename(event.target.files)
+    } else {
+      this.saveToIpfs1(event.target.files)
+    }
+  }
+
+
+
+
+
+
 async saveToIpfs (files) {
   const source = this.ipfs.add(
     [...files],
@@ -199,6 +239,23 @@ async saveToIpfs (files) {
     for await (const file of source) {
       console.log(file)
       this.setState({ added_file_hash: file.path })
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+async saveToIpfs1 (files) {
+  const source1 = this.ipfs.add(
+    [...files],
+    {
+      progress: (prog) => console.log(`received: ${prog}`)
+    }
+  )
+  try {
+    for await (const file of source1) {
+      console.log(file)
+      this.setState({ prehash: file.path })
     }
   } catch (err) {
     console.error(err)
@@ -358,65 +415,41 @@ if (this.state.redirect) {
 return (
 <div className="row" id="Body">
 <div className="medium-12 columns">
-<h1 class="welcome"> Welcome Dr.{this.state.doctors.map((doctor)=>
-{
-return (doctor.name)
-})} </h1>
-<a href="/login" onClick={this.logout} className="logout">Logout</a>            
+<h1 class="welcome1"> <img class="doc"src= {doc} alt="pic" /> Doctor Profile </h1>
+
+<a href="/login" onClick={this.logout} className="logout"><FontAwesomeIcon icon={faHandPointLeft} /> Logout</a>            
+
 <Tabs>
     <TabList>
-      <Tab>View details</Tab>
-	  <Tab>Patients</Tab>
-	  <Tab>Patient approval</Tab>
-	  <Tab>Upload reports</Tab>
-    <Tab>Upload Prescription</Tab>
+      <Tab><FontAwesomeIcon icon={faInfo} /> View details</Tab>
+	  <Tab class="tabs"><FontAwesomeIcon icon={faListAlt} /> Patients</Tab>
+	  <Tab><FontAwesomeIcon icon={faCheck} /> Patient approval</Tab>
+	  <Tab><FontAwesomeIcon icon={faUpload} /> Upload reports</Tab>
+    <Tab><FontAwesomeIcon icon={faUpload} /> Upload Prescription</Tab>
+    
     </TabList>
  
     <TabPanel>
-      <h2>Account Details</h2>
+      <h3 class="sunhead">My Profile</h3>
       
-      <h4>{ this.state.doctors.map((doctor)=> { 
+      { this.state.doctors.map((doctor)=> { 
                   return(
                     <div>
-                      <table>
-                        <tr>
-                          <th class="head">DOCTOR ID: </th>
-                          <td class="data">{this.data.id}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">DOCTOR NAME: </th>
-                          <td class="data">{doctor.name}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">ACCOUNT ADDRESS: </th>
-                          <td class="data">{doctor.docacc}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">SPECIALIZATION: </th>
-                          <td class="data">{doctor.spec}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">BLOOD GROUP: </th>
-                          <td class="data">{doctor.blood}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">ADDRESS: </th>
-                          <td class="data">{doctor.addr}</td>
-                        </tr>
-                        <tr>
-                          <th class="head">DOCUMENT: </th>
-                          <td class="data"><a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + doctor.filehash}>{ doctor.filehash }</a></td>
-                        </tr>
-                      </table>
-                  
-                  </div>
-
-)
-})
-}</h4>
-     
-      <button class="privatekey" onClick= {(event)=>{
+                      <Card class="card">
+      <CardContent>
+        <div class="updiv"></div>
+        <center><img class="docround"src= {docround} alt="pic" /></center>
+        <center><h4><b>Dr. {doctor.name}</b></h4>
+        <h6>{doctor.spec}</h6>
+        <h6><FontAwesomeIcon icon={faMapMarkerAlt} /> {doctor.addr}</h6></center>
+        <p class="content">
+        Doctor ID <FontAwesomeIcon icon={faIdBadge} /> : {this.data.id}<br/>
+        Blood Group <FontAwesomeIcon icon={faTint} /> : {doctor.blood} <br/>
+        Account Address <FontAwesomeIcon icon={faAddressCard} /> :<br/> {doctor.docacc}<br/>
+        Document <FontAwesomeIcon icon={faFileAlt} /> :<br/><a target='_blank'
+                   href={'https://ipfs.io/ipfs/' + doctor.filehash}>{ doctor.filehash }</a>
+        </p>
+        <center><button class="privatekey1" onClick= {(event)=>{
           var val=prompt("Please enter your password")
           if(val==this.data.password)
           { this.state.doctors.map((doctor,key)=> { 
@@ -431,32 +464,32 @@ return (doctor.name)
       }
     }> Get Private Key
 
-      </button>
+      </button></center>
+        
+      </CardContent>
+    </Card>
+                  
+                  </div>
 
+)
+})
+}
     </TabPanel>
 	<TabPanel>
-      <h2>Patients</h2>
-      <table>
-        <tr>
-          <th class="tabh">Patient ID</th>
-          <th class="tabh">Patient Name</th>
-          <th class="tabh">Blood Group</th>
-          <th class="tabh">Address</th>
-          <th class="tabh">Patient Report</th>
-        </tr>
-      </table>
+      <h3 class="sunhead">Patients</h3>
       {
         this.state.appointments.map((app)=> {
           return(
-            <div>
-              <table>
-                <tr>
-                  <td  class="tabhx">{parseInt(app.patid)}</td>
-                  <td  class="tab">{app.patname}</td>
-                  <td  class="tabx">{app.blood}</td>
-                  <td  class="tabx">{app.addr}</td>
-                  <td>
-                  <button class="appointment" 
+            <div class="apts">
+              <img class="pat"src= {pat} alt="pic" />
+              <h3 class="patname1" >{app.patname}</h3>
+                  <div class="patdet">
+                  <h6>Patient ID <FontAwesomeIcon icon={faIdBadge} /> : {parseInt(app.patid)}</h6>
+                  <h6>Address <FontAwesomeIcon icon={faMapMarkerAlt} /> : {app.addr}</h6>
+                  </div>
+                  
+                  
+                  <button class="reqacc" 
                        onClick= { (event)=> {
                         let data1 = {
                           did: parseInt(app.docid),
@@ -477,9 +510,6 @@ return (doctor.name)
                          );
                          }
                        }}>Request Access</button>
-         
-                  </td>
-                  <td>
                     {
                       this.state.contacts.map((contacts)=>{
                         if(contacts.status==2 && contacts.pat_id==app.patid)
@@ -487,9 +517,7 @@ return (doctor.name)
                       
                         return(
                           <div class="contain">
-                            
-                          
-                          <button class="appointment"
+                          <button class="viewrep"
                           onClick={(event)=>
 
                           { 
@@ -507,17 +535,14 @@ return (doctor.name)
                           
                           }}
                           
-                          
+
                           >View Reports</button>
-                          <p class="stylep">{contacts.name}</p>
                           </div>
                         )
                         }
                       })
                     }
-                  </td>
-                </tr>
-              </table>
+            
             </div>
           )
         })
@@ -526,30 +551,21 @@ return (doctor.name)
       
     </TabPanel>
 	<TabPanel>
-      <h2>Approval</h2>
-      <table>
-        <tr>
-          <th class="tabh">Patient ID</th>
-          <th class="tabh">Patient Name</th>
-          <th class="tabh">Blood Group</th>
-          <th class="tabh">Address</th>
-        </tr>
-      </table>
-    
-        {
-          this.state.appointments.map((app)=> {
-
-            
-            return(
-              <div>
-                <table>
-                  <tr>
-                    <td  class="tab1">{parseInt(app.patid)}</td>
-                    <td  class="tab">{app.patname}</td>
-                    <td  class="tab2">{app.blood}</td>
-                    <td  class="tab2">{app.addr}</td>
-                    <td>
-                    <button class="appointment"
+      <h3 class="sunhead">Appointment Approval</h3>
+      
+      {
+        this.state.appointments.map((app)=> {
+          return(
+            <div class="apts">
+              <img class="pat"src= {pat} alt="pic" />
+              <h3 class="patname1" >{app.patname}</h3>
+                  <div class="patdet">
+                  <h6>Patient ID <FontAwesomeIcon icon={faIdBadge} /> : {parseInt(app.patid)}</h6>
+                  <h6>Address <FontAwesomeIcon icon={faMapMarkerAlt} /> : {app.addr}</h6>
+                  </div>
+                  
+                  
+                  <button class="appt1"
                          onClick=
                            {
                           (event)=>{
@@ -560,18 +576,16 @@ return (doctor.name)
           }
         }>Approve Appointment
            </button>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            )
-          })
-
+                    
+            
+            </div>
+          )
+        })
         }
           
     </TabPanel>
 	<TabPanel>
-      <h2>Upload Report</h2>
+      <h3 class="sunhead">Upload Report</h3>
       <div className="row " id="sBody">
 	  <div className="medium-5 columns left">
 	  <form id="myform">
@@ -582,19 +596,21 @@ return (doctor.name)
           <label htmlFor='keepFilename'><input type='checkbox' id='keepFilename' name='keepFilename' /> keep filename</label>
 	  </form>
 	  <div>
-		<label>Hash(Note: Please copy the hash that will be generated after choosing file into the input box below)</label><a target='_blank'
+		<label>Hash:</label><a target='_blank'
 			href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
-				{this.state.added_file_hash}</a>
+			{this.state.added_file_hash}</a>
 	  </div>
-	  <input type="text" name="filehash" placeholder="File Hash" onChange={this.onChange}/>
+	  <input type="text" name="filehash" placeholder="File Hash" value={this.state.added_file_hash} onChange={this.onChange}/>
 	  <input type="button" className="button" value="Upload" onClick={this.upload}/>
 	  </form>
+   
 	  </div>
+    <img class = "rep" src={fileimg} alt="pic"/>
 	  </div>
 
     </TabPanel>
     <TabPanel>
-    <h2>Upload Prescription</h2>
+    <h3 class="sunhead">Upload Prescription</h3>
       <div className="row " id="sBody">
 	  <div className="medium-5 columns left">
 	  <form id="myform">
@@ -602,18 +618,20 @@ return (doctor.name)
 	  <input type="text" name="filename" placeholder="Presciption name" onChange={this.onCha}/>
     <input type="date" name="presci" onChange={this.onCha}/>
 	  <form id='captureMedia' onSubmit={this.handleSubmit}>
-          <input type='file' onChange={this.captureFile} /><br/>
+          <input type='file' onChange={this.captureFile1} /><br/>
           <label htmlFor='keepFilename'><input type='checkbox' id='keepFilename' name='keepFilename' /> keep filename</label>
 	  </form>
 	  <div>
-		<label>Hash(Note: Please copy the hash that will be generated after choosing file into the input box below)</label><a target='_blank'
-			href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
-				{this.state.added_file_hash}</a>
+		<label>Hash:</label><a target='_blank'
+			href={'https://ipfs.io/ipfs/' + this.state.prehash}>
+			{this.state.prehash}</a>
 	  </div>
-	  <input type="text" name="filehash" placeholder="File Hash" onChange={this.onCha}/>
+	  <input type="text" name="prehash" placeholder="File Hash" value={this.state.prehash} onChange={this.onCha}/>
 	  <input type="button" className="button" value="Upload" onClick={this.uploadpre}/>
 	  </form>
+    
 	  </div>
+    <img class="pres" src={[prescription]} alt="pic"/>
 	  </div>
     </TabPanel>
   </Tabs>
