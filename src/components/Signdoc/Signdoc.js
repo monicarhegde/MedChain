@@ -76,7 +76,7 @@ handleSubmit (event) {
     event.preventDefault()
   }
 signup() {
-if(this.state.username && this.state.password && this.state.name && this.state.address && this.state.bloodgrp && this.state.filehash){
+if(this.state.username && this.state.password && this.state.name && this.state.address && this.state.email && this.state.spec){
 	alert("Your request has been submitted to admin please wait for approval");
 PostData('signdoc',this.state).then((result) => {
 let responseJson = result;
@@ -121,7 +121,7 @@ return (
 		</form>
 		<div>
 		<label>Hash:</label><a target='_blank'
-			href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
+			href={'http://127.0.0.1:8080/ipfs/' + this.state.added_file_hash}>
 			{this.state.added_file_hash}</a>
 		</div>
 		<input type="text" name="filehash" placeholder="File Hash" value={this.state.added_file_hash} onChange={this.onChange} />

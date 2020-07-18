@@ -83,11 +83,12 @@ signup() {
 		let data= {
 			id: patid+1,
 			username:this.state.username,
-			password: this.state.password
+			password: this.state.password,
+			email: this.state.email,
 		}
 
 	
-if(this.state.username && this.state.password && this.state.email && this.state.name && this.state.bloodgrp && this.state.address){
+if(this.state.username && this.state.password && this.state.email && this.state.name && this.state.address){
 PostData('signup',data).then((result) => {
 if(result.success)
 {

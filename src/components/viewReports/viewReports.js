@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {PostData} from '../../services/PostData';
+import image from './file1.png';
 import './viewReports.css';
 class viewReports extends Component {
 constructor(props)
@@ -24,7 +25,7 @@ console.log(data)
         <h4 class="det">Uploaded by: Dr. {data.docname}</h4>
         <h4 class="det">Report Name: {data.file}</h4>
         <h4 class="det">Report: <a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + data.filehash}>{ data.filehash }</a></h4>
+                   href={'http://127.0.0.1:8080/ipfs/' + data.filehash}>{ data.filehash }</a></h4>
         
         <button class="appointment1" onClick={(event)=>{
             let statusback={
@@ -44,6 +45,7 @@ console.log(data)
             this.setState({redirectrefer: true})
             
         }}>Back</button>
+        <img class="image" src={image} alt="pic"/>
     </div>
     )
 }

@@ -15,7 +15,7 @@ import './management.css';
 import patimg from './person1.png';
 import { faSearch} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import image from './prescription.png';
 class management extends Component{
     async componentWillMount() {
         await this.loadWeb3()
@@ -230,13 +230,7 @@ class management extends Component{
                     
                     </TabPanel>
                     <TabPanel>
-                    <table>
-                                  <tr>
-                                    <th class="headp">Name</th>
-                                    <th class="headp">Date</th>
-                                    <th class="headpd">Doctor</th>
-                                  </tr>
-                      </table>
+                  
                       {
                         this.state.pres.map((pre)=>
                         {
@@ -244,13 +238,11 @@ class management extends Component{
                           {
                             return (
                               <div>
-                                <table>
-                                  <tr>
-                                    <td class="pdata">{pre.filenamep}</td>
-                                    <td class="pdata">{pre.datep}</td>
-                                    <td class="pdata">Dr.{pre.docnamep}</td>
-                                    <td>
-                                    <button onClick={(event)=> {
+                                <div class="mgmtpres">
+                                  <img class="image" src={image} alt="pic"/>
+                                  <h5 class="presdet">Prescription : {pre.filenamep}<br/>Prescribed on: {pre.datep}<br/>
+                                  By : Dr.{pre.docnamep}</h5>
+                                  <button class="butreqpre" onClick={(event)=> {
                                   let data1 = {
                                     did: parseInt(pre.docidp),
                                     pid: parseInt(pre.patidp),
@@ -269,11 +261,8 @@ class management extends Component{
                                    }
                                    );
                                    }
-                                }} >REQUEST ACCESS</button>
-
-                                    </td>
-                                    <td>
-                                    {
+                                }} >Request Access</button>
+                                {
                       this.state.contacts.map((contacts)=>{
                         if(contacts.status==2 && contacts.pat_id==this.state.patidToSearch)
                         {
@@ -282,7 +271,7 @@ class management extends Component{
                           <div class="contain">
                             
                           
-                          <button class="appointment"
+                          <button class="viewpr"
                           onClick={(event)=>
 
                           { 
@@ -302,16 +291,14 @@ class management extends Component{
                           
                           
                           >View Reports</button>
-                          <p class="stylep">{contacts.name}</p>
+                          
                           </div>
                         )
                         }
                       })
                     }
-
-                                    </td>
-                                  </tr>
-                                </table>
+                                </div>
+                                
                               </div>
                             )
                           }

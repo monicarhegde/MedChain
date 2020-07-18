@@ -14,6 +14,7 @@ class forgotpassword extends Component
         this.state={
             backToHome:false,
             email:'',
+            redirectLog : false,
         }
         this.onChange=this.onChange.bind(this);
         this.fPassword=this.fPassword.bind(this);
@@ -26,7 +27,14 @@ class forgotpassword extends Component
             console.log(this.state.email)
             if(this.state.email){
                 PostData('fPassword',this.state).then((result) => {
-                    console.log(result)
+                    if(result.success)
+                        {
+                            this.setState({redirectLog : true})
+                        }
+                        else
+                        {
+                                console.log("Resetting password failed!")
+                        }
         
                 });
                 }
@@ -38,6 +46,10 @@ class forgotpassword extends Component
         if(this.state.backToHome)
 {
 	return(<Redirect to={'/'}/>)
+}
+else if(this.state.redirectLog)
+{
+	return(<Redirect to={'/login'}/>)
 }
         return(
             <div class="whole1">

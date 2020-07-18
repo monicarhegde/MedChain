@@ -122,7 +122,7 @@ return (
           </p>
           <p class="verify">
           Certificate : <a target='_blank'
-    href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a>
+    href={'http://127.0.0.1:8080/ipfs/' + contacts.filehash}>{ contacts.filehash }</a>
           </p>
           <button class="acceptdoc" onClick={ (event) =>
 				{

@@ -340,7 +340,7 @@ return (
       <p class="repdetails">Uploaded by : Dr. {rep.docname} <br/>
       Report : {rep.repname}</p>
       <p class="repfile">File : <a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + rep.hash}>{ rep.hash }</a></p>
+                   href={'http://127.0.0.1:8080/ipfs/' + rep.hash}>{ rep.hash }</a></p>
       </div>
           )
         })
@@ -359,7 +359,7 @@ return (
             <img class="grantrep" src={report1} alt="pic"/>
             <p class="grantdet">Access to : Dr. {contacts.dname} <br/> Report : {contacts.name}</p>
             <p class="grantfile">File : <a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></p>
+                   href={'http://127.0.0.1:8080/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></p>
             <button class="accept" onClick={(event)=>
                 {
                   let data1 = {
@@ -398,7 +398,7 @@ return (
             <img class="grantrep" src={[prescription]} alt="pic"/>
             <p class="grantdet">Prescribed by : Dr. {contacts.dname} <br/> Prescription : {contacts.name}</p>
             <p class="grantfile">File : <a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></p>
+                   href={'http://127.0.0.1:8080/ipfs/' + contacts.filehash}>{ contacts.filehash }</a></p>
             <button class="accept" onClick={(event)=>
                 {
                   let data1 = {

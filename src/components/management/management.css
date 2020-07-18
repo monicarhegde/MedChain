@@ -102,3 +102,45 @@
         height: 80%;
         margin-top: 10px;
     }
+    .mgmtpres
+    {
+        width: 90%;
+        margin-left: 60px;
+        border: 1px solid grey;
+        margin-top: 10px;
+        height: 110px;
+
+    }
+    .presdet
+    {
+        margin-left: 120px;
+        margin-top : -80px;
+    }
+    .butreqpre
+    {
+    color: rgb(4, 3, 44);
+    background-color: rgb(71, 162, 248);
+    width: 15%;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 750px;
+    margin-top: -6%;
+    }
+    .image
+    {
+        width: 8%;
+        height: 80%;
+        margin-top: 8px;
+        margin-left: 5px;
+    }
+    .viewpr
+    {
+    color: rgb(4, 3, 44);
+    background-color: rgb(71, 162, 248);
+    width: 15%;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 1000px;
+    margin-top: -9%;
+    }
+    

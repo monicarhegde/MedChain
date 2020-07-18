@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {PostData} from '../../services/PostData';
 import './viewprescription.css';
+import image from './file1.png';
 class viewprescription extends Component {
 constructor(props)
 {
@@ -24,7 +25,7 @@ console.log(data)
         <h4 class="det">Prescribed by: Dr.{data.docname}</h4>
         <h4 class="det">Prescription Name: {data.file}</h4>
         <h4 class="det">Prescription: <a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + data.filehash}>{ data.filehash }</a></h4>
+                   href={'http://127.0.0.1:8080/ipfs/' + data.filehash}>{ data.filehash }</a></h4>
         
         <button class="appointment1" onClick={(event)=>{
             let statusback={
@@ -44,6 +45,7 @@ console.log(data)
             this.setState({redirectToManage: true})
             
         }}>Back</button>
+        <img class="image" src={image} alt="pic"/>
     </div>
     )
 }

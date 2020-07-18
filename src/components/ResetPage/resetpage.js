@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {PostData} from '../../services/PostData';
+import {Redirect} from 'react-router-dom';
 import './resetpage.css'
 class resetpage extends Component
 {
@@ -10,6 +11,7 @@ class resetpage extends Component
         this.state={
             password:'',
             confirmpassword:'',
+            rediretLogin: false,
         }
         this.onChange=this.onChange.bind(this);
         this.newPassword=this.newPassword.bind(this);
@@ -28,6 +30,8 @@ class resetpage extends Component
             
             PostData('newPassword',data).then((result) => {
                 console.log(result)
+                alert(result.success)
+                this.setState({redirectLogin: true})
             });
             }
             else
@@ -38,6 +42,10 @@ class resetpage extends Component
         }
     render()
     {
+        if(this.state.rediretLogin)
+        {
+            return(<Redirect to={'/login'}/>)
+        }
         return(
             <div class="resetdiv">
                 <h3>Reset Password</h3><br/>

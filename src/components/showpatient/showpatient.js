@@ -66,25 +66,27 @@ render() {
     return (
         <div>
         <a href="/management" class="back">Back</a>
-        <h4 class="tabh">Patient List</h4>
-        <table>
-                        <tr>
-                        <th class="tabh">ID</th>
-                        <th class="tabh">name</th>
-                        </tr>
-        </table>
-        {
+       <h4 class="showpathead">Patient List</h4><br/><br/>
+       <center><table><tr>
+         <th>PATIENT ID</th>
+         <th>PATIENT NAME</th>
+         </tr></table></center>
+        { 
             this.state.patients.map((patient)=>
             {
                 return(
-                    <table>
-                        <tr>
-                            <td class="tabd">{parseInt(patient.id)}</td>
-                            <td class="tabd">{patient.name}</td>
-                        </tr>
-                        
+                  <div class="showbody">
+                  <center>
+                  <table border="1px solid red">
+                      <tr>
+                        <td>{parseInt(patient.id)}</td>
+                        <td>{patient.name}</td>
+                      </tr>
                     </table>
+                  </center>
                     
+                    
+                 </div>   
 
                 )
             }

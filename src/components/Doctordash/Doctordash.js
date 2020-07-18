@@ -13,7 +13,7 @@ import Login from '../../components/Login/Login';
 import Web3 from 'web3';
 import Marketplace from '../../abis/Marketplace.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfo, faMapMarker, faMapMarkerAlt, faIdBadge ,faFileAlt} from '@fortawesome/free-solid-svg-icons';
+import { faInfo, faMapMarker, faMapMarkerAlt, faIdBadge ,faFileAlt, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import { faListAlt , faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -71,6 +71,7 @@ let docdataacc = JSON.parse(sessionStorage.getItem('userData'));
 
   for (var i = 1; i <= doctorCount; i++) {
 const doctor = await marketplace.methods.doctors(i).call()
+console.log(doctor)
 if(doctor.id==docdataacc.id)
 { 
   console.log(doctor)
@@ -433,6 +434,7 @@ return (
       <h3 class="sunhead">My Profile</h3>
       
       { this.state.doctors.map((doctor)=> { 
+        console.log(doctor);
                   return(
                     <div>
                       <Card class="card">
@@ -444,10 +446,10 @@ return (
         <h6><FontAwesomeIcon icon={faMapMarkerAlt} /> {doctor.addr}</h6></center>
         <p class="content">
         Doctor ID <FontAwesomeIcon icon={faIdBadge} /> : {this.data.id}<br/>
-        Blood Group <FontAwesomeIcon icon={faTint} /> : {doctor.blood} <br/>
+        Email <FontAwesomeIcon icon={faEnvelope} /> : {doctor.email} <br/>
         Account Address <FontAwesomeIcon icon={faAddressCard} /> :<br/> {doctor.docacc}<br/>
         Document <FontAwesomeIcon icon={faFileAlt} /> :<br/><a target='_blank'
-                   href={'https://ipfs.io/ipfs/' + doctor.filehash}>{ doctor.filehash }</a>
+                   href={'http://127.0.0.1:8080/ipfs/' + doctor.filehash}>{ doctor.filehash }</a>
         </p>
         <center><button class="privatekey1" onClick= {(event)=>{
           var val=prompt("Please enter your password")
@@ -590,14 +592,14 @@ return (
 	  <div className="medium-5 columns left">
 	  <form id="myform">
 	  <input type="number" name="patid" placeholder="Patient ID" onChange={this.onChange}/>
-	  <input type="text" name="filename" placeholder="File name" onChange={this.onChange}/>
+	  <input type="text" name="filename" placeholder="File name" autocomplete="off" onChange={this.onChange}/>
 	  <form id='captureMedia' onSubmit={this.handleSubmit}>
           <input type='file' onChange={this.captureFile} /><br/>
           <label htmlFor='keepFilename'><input type='checkbox' id='keepFilename' name='keepFilename' /> keep filename</label>
 	  </form>
 	  <div>
 		<label>Hash:</label><a target='_blank'
-			href={'https://ipfs.io/ipfs/' + this.state.added_file_hash}>
+			href={'http://127.0.0.1:8080/ipfs/' + this.state.added_file_hash}>
 			{this.state.added_file_hash}</a>
 	  </div>
 	  <input type="text" name="filehash" placeholder="File Hash" value={this.state.added_file_hash} onChange={this.onChange}/>
@@ -615,7 +617,7 @@ return (
 	  <div className="medium-5 columns left">
 	  <form id="myform">
 	  <input type="number" name="patid" placeholder="Patient ID" onChange={this.onCha}/>
-	  <input type="text" name="filename" placeholder="Presciption name" onChange={this.onCha}/>
+	  <input type="text" name="filename" placeholder="Presciption name" autocomplete="off" onChange={this.onCha}/>
     <input type="date" name="presci" onChange={this.onCha}/>
 	  <form id='captureMedia' onSubmit={this.handleSubmit}>
           <input type='file' onChange={this.captureFile1} /><br/>
@@ -623,7 +625,7 @@ return (
 	  </form>
 	  <div>
 		<label>Hash:</label><a target='_blank'
-			href={'https://ipfs.io/ipfs/' + this.state.prehash}>
+			href={'http://127.0.0.1:8080/ipfs/' + this.state.prehash}>
 			{this.state.prehash}</a>
 	  </div>
 	  <input type="text" name="prehash" placeholder="File Hash" value={this.state.prehash} onChange={this.onCha}/>

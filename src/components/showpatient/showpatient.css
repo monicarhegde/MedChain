@@ -16,3 +16,25 @@
     
 
 }
+.showall
+{   
+    width: 80%;
+    border-bottom: 1px solid rgb(13, 17, 80);
+    
+    margin-left: 130px;
+    
+}
+.showbody
+{
+    height: 500px;
+}
+td{
+    width: 280px;
+}
+th{
+    width: 280px;
+}
+.showpathead
+{
+    margin-left: 45%;
+}
