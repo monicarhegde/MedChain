@@ -109,11 +109,11 @@ return (
 	</TabList>
 	<TabPanel>
 		<h4>Signup doctor</h4>
-		<input type="text" name="name" placeholder="Name" onChange={this.onChange}/>
-		<input type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+		<input type="text" autocomplete="off" name="name" placeholder="Name" onChange={this.onChange}/>
+		<input type="text" autocomplete="off" name="username" placeholder="Username" onChange={this.onChange}/>
 		<input type="password" name="password" placeholder="Password" onChange={this.onChange}/>
-    <input type="text" name="spec" placeholder="Specialization" onChange={this.onChange}/>
-		<input type="text" name="email" placeholder="Email" onChange={this.onChange}/>
+    <input type="text" autocomplete="off" name="spec" placeholder="Specialization" onChange={this.onChange}/>
+		<input type="text" autocomplete="off" name="email" placeholder="Email" onChange={this.onChange}/>
 		<textarea name="address" rows="5" cols="20" placeholder="Address" onChange={this.onChange}/>
 		<form id='captureMedia' onSubmit={this.handleSubmit}>
            <input type='file' onChange={this.captureFile} /><br/>
@@ -124,7 +124,7 @@ return (
 			href={'http://127.0.0.1:8080/ipfs/' + this.state.added_file_hash}>
 			{this.state.added_file_hash}</a>
 		</div>
-		<input type="text" name="filehash" placeholder="File Hash" value={this.state.added_file_hash} onChange={this.onChange} />
+		<input type="text" autocomplete="off" name="filehash" placeholder="File Hash" value={this.state.added_file_hash} onChange={this.onChange} />
 		<input type="submit" className="button" value="Sign Up" onClick={this.signup}/>
 	</TabPanel>
 </Tabs>

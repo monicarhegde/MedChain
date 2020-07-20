@@ -75,7 +75,7 @@ render() {
             this.state.patients.map((patient)=>
             {
                 return(
-                  <div class="showbody">
+                  
                   <center>
                   <table border="1px solid red">
                       <tr>
@@ -86,7 +86,7 @@ render() {
                   </center>
                     
                     
-                 </div>   
+                 
 
                 )
             }

@@ -11,7 +11,7 @@ class resetpage extends Component
         this.state={
             password:'',
             confirmpassword:'',
-            rediretLogin: false,
+            redirectLogin: false,
         }
         this.onChange=this.onChange.bind(this);
         this.newPassword=this.newPassword.bind(this);
@@ -22,27 +22,40 @@ class resetpage extends Component
         const search=window.location.search;
         const params=new URLSearchParams(search);
         const id=params.get('id');
-        if(this.state.password==this.state.confirmpassword){
-            let data={
-                password: this.state.password,
-                id: id,
-            }
-            
-            PostData('newPassword',data).then((result) => {
-                console.log(result)
-                alert(result.success)
-                this.setState({redirectLogin: true})
-            });
-            }
-            else
-                alert("Passwords don't match");
+        if(this.state.password && this.state.confirmpassword)
+        {
+            if(this.state.password==this.state.confirmpassword){
+                let data={
+                    password: this.state.password,
+                    id: id,
+                }
+                
+                PostData('newPassword',data).then((result) => {
+                    console.log(result)
+                    if(result.success)
+                    {
+                     alert(result.success)
+                    this.setState({redirectLogin: true})
+                    }
+                    else{
+                        alert(result.error)
+                    }
+                });
+                }
+                else
+                    alert("Passwords don't match");
+        }
+        else{
+            alert("Enter new password");
+        }
+       
     }
     onChange(e){
         this.setState({[e.target.name]:e.target.value});
         }
     render()
     {
-        if(this.state.rediretLogin)
+        if(this.state.redirectLogin)
         {
             return(<Redirect to={'/login'}/>)
         }

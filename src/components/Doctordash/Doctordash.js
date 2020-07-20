@@ -302,24 +302,25 @@ uploadPrescription(patid,doc_id,dname,filename,presci,filehash)
 	})
 }
 upload() {
-  this.uploadFiles(this.state.patid,this.state.doc_id,this.state.dname,this.state.filename,this.state.filehash);
+  
 console.log(this.state)
 let data={
   patid: this.state.patid,
   doc_id: this.state.doc_id,
   filename: this.state.filename,
-  filehash: this.state.filehash,
+  filehash: this.state.added_file_hash,
   dname: this.state.dname,
 }
-if(this.state.patid && this.state.filename && this.state.filehash){
+if(this.state.patid && this.state.filename){
 PostData('upload',data).then((result) => {
 if(result.success)
 {
+  this.uploadFiles(this.state.patid,this.state.doc_id,this.state.dname,this.state.filename,this.state.added_file_hash);
 alert(result.success);
 }
 else
 alert(result.error);
-this.setState({redirectToReferrere: true});
+
 }
 );
 }
@@ -367,30 +368,28 @@ onChange(e){
   this.setState({[e.target.name]:e.target.value});
   }
   logout(){
-    if(this.state.redirectToReferrere)
-    {
-    return (<Redirect to={'/login'}/>)
-    }
+    this.setState({redirectToReferrere: true});
     }
 onCha(e) {
   this.setState({[e.target.name]:e.target.value});
 }
 uploadpre() {
-  this.uploadPrescription(this.state.patid,this.state.doc_id,this.state.dname,this.state.filename,this.state.presci,this.state.filehash);
+  
 console.log(this.state)
 let data={
   patid: this.state.patid,
   doc_id: this.state.doc_id,
   filename: this.state.filename,
-  filehash: this.state.filehash,
+  filehash: this.state.prehash,
   datep: this.state.presci,
   dname: this.state.dname,
 }
-if(this.state.patid){
+if(this.state.patid && this.state.filename && this.state.presci){
 PostData('uploadpre',data).then((result) => {
 if(result.success)
 {
 alert(result.success);
+this.uploadPrescription(this.state.patid,this.state.doc_id,this.state.dname,this.state.filename,this.state.presci,this.state.prehash);
 }
 else
 alert(result.error);
@@ -403,6 +402,10 @@ alert("Please enter all the fields");
 document.getElementById("myform").reset();
 }
 render() {
+  if(this.state.redirectToReferrere)
+  {
+  return (<Redirect to={'/login'}/>)
+  }
 
   //let docdata = JSON.parse(sessionStorage.getItem('userData'));
   this.data = JSON.parse(sessionStorage.getItem('userData'));
@@ -592,7 +595,7 @@ return (
 	  <div className="medium-5 columns left">
 	  <form id="myform">
 	  <input type="number" name="patid" placeholder="Patient ID" onChange={this.onChange}/>
-	  <input type="text" name="filename" placeholder="File name" autocomplete="off" onChange={this.onChange}/>
+	  <input type="text" autocomplete="off" name="filename" placeholder="File name" autocomplete="off" onChange={this.onChange}/>
 	  <form id='captureMedia' onSubmit={this.handleSubmit}>
           <input type='file' onChange={this.captureFile} /><br/>
           <label htmlFor='keepFilename'><input type='checkbox' id='keepFilename' name='keepFilename' /> keep filename</label>
@@ -602,10 +605,10 @@ return (
 			href={'http://127.0.0.1:8080/ipfs/' + this.state.added_file_hash}>
 			{this.state.added_file_hash}</a>
 	  </div>
-	  <input type="text" name="filehash" placeholder="File Hash" value={this.state.added_file_hash} onChange={this.onChange}/>
+	  <input type="text" autocomplete="off" name="filehash" placeholder="File Hash" value={this.state.added_file_hash} onChange={this.onChange}/>
 	  <input type="button" className="button" value="Upload" onClick={this.upload}/>
 	  </form>
-   
+  
 	  </div>
     <img class = "rep" src={fileimg} alt="pic"/>
 	  </div>
@@ -617,7 +620,7 @@ return (
 	  <div className="medium-5 columns left">
 	  <form id="myform">
 	  <input type="number" name="patid" placeholder="Patient ID" onChange={this.onCha}/>
-	  <input type="text" name="filename" placeholder="Presciption name" autocomplete="off" onChange={this.onCha}/>
+	  <input type="text" autocomplete="off" name="filename" placeholder="Presciption name" autocomplete="off" onChange={this.onCha}/>
     <input type="date" name="presci" onChange={this.onCha}/>
 	  <form id='captureMedia' onSubmit={this.handleSubmit}>
           <input type='file' onChange={this.captureFile1} /><br/>
@@ -628,7 +631,7 @@ return (
 			href={'http://127.0.0.1:8080/ipfs/' + this.state.prehash}>
 			{this.state.prehash}</a>
 	  </div>
-	  <input type="text" name="prehash" placeholder="File Hash" value={this.state.prehash} onChange={this.onCha}/>
+	  <input type="text" autocomplete="off" name="prehash" placeholder="File Hash" value={this.state.prehash} onChange={this.onCha}/>
 	  <input type="button" className="button" value="Upload" onClick={this.uploadpre}/>
 	  </form>
     

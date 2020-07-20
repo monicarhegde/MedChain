@@ -41,7 +41,7 @@ return (
 <div className="row" id="Body">
 <div className="medium-5 columns left">
 <h4>Login Admin</h4>
-<input type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+<input type="text" autocomplete="off" name="username" placeholder="Username" onChange={this.onChange}/>
 <input type="password" name="passworde" placeholder="Password" onChange={this.onChange}/>
 <input type="submit" className="button" value="Login" onClick={this.login}/>
 <a href="/login">Go back?</a>

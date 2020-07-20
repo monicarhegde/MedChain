@@ -14,6 +14,7 @@ class forgotpassword extends Component
         this.state={
             backToHome:false,
             email:'',
+            uname:'',
             redirectLog : false,
         }
         this.onChange=this.onChange.bind(this);
@@ -25,7 +26,7 @@ class forgotpassword extends Component
     fPassword()
         {
             console.log(this.state.email)
-            if(this.state.email){
+            if(this.state.email && this.state.uname){
                 PostData('fPassword',this.state).then((result) => {
                     if(result.success)
                         {
@@ -66,7 +67,8 @@ else if(this.state.redirectLog)
 		<h4>Forgot Password</h4></center>
  <br/>
 <center>
-<input type="text" name="email" class="writeemail" placeholder="Enter Email address" onChange={this.onChange}/>
+<input type="text" name="uname" class="writeemail" autocomplete="off" placeholder="Enter Username " onChange={this.onChange}/>
+<input type="text" name="email" class="writeemail" autocomplete="off" placeholder="Enter Email address" onChange={this.onChange}/>
 </center>
 <div class="btnstyle"><input type="submit" className="button" value="Send Email" onClick={this.fPassword}/><br/><br/></div>
 </div>

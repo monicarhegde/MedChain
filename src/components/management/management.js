@@ -201,7 +201,7 @@ class management extends Component{
             
             <div >
                 
-                <input type="text"  class="inputbox" name="patidToSearch" placeholder="Enter Patient ID Here" onChange={this.change}/>
+                <input type="text"  class="inputbox" autocomplete="off" name="patidToSearch" placeholder="Enter Patient ID Here" onChange={this.change}/>
                 <button class="butsearch" onClick={this.search}><FontAwesomeIcon icon={faSearch} /> Search</button>
                 <a href="/showpatient" className="showpat" >Show All Patients</a>
                 
@@ -238,8 +238,8 @@ class management extends Component{
                           {
                             return (
                               <div>
-                                <div class="mgmtpres">
-                                  <img class="image" src={image} alt="pic"/>
+                                <div class="mgmtpres1">
+                                  <img class="image1" src={image} alt="pic"/>
                                   <h5 class="presdet">Prescription : {pre.filenamep}<br/>Prescribed on: {pre.datep}<br/>
                                   By : Dr.{pre.docnamep}</h5>
                                   <button class="butreqpre" onClick={(event)=> {

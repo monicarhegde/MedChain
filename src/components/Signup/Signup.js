@@ -74,7 +74,7 @@ this.createPatient= this.createPatient.bind(this);
 }
 
 signup() {
-	this.createPatient(this.state.name,this.state.email,this.state.bloodgrp,this.state.address)
+	
 		  
 	
 
@@ -94,6 +94,7 @@ if(result.success)
 {
 	//alert(result.success);
 	this.setState({redirectToReferrera: true});
+	this.createPatient(this.state.name,this.state.email,this.state.bloodgrp,this.state.address);
 }
 else
 	alert(result.error);
@@ -130,11 +131,11 @@ return (
 	</TabList>
 	<TabPanel>
 	<h4>Signup</h4>
-<input type="text" name="email" placeholder="Email" onChange={this.onChange}/>
-<input type="text" name="name" placeholder="Name" onChange={this.onChange}/>
-<input type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+<input type="text" autocomplete="off" name="email" placeholder="Email" onChange={this.onChange}/>
+<input type="text" autocomplete="off" name="name" placeholder="Name" onChange={this.onChange}/>
+<input type="text" autocomplete="off" name="username" placeholder="Username" onChange={this.onChange}/>
 <input type="password" name="password" placeholder="Password" onChange={this.onChange}/>
-<input type="text" name="bloodgrp" placeholder="Blood Group" onChange={this.onChange}/>
+<input type="text" autocomplete="off" name="bloodgrp" placeholder="Blood Group" onChange={this.onChange}/>
 <textarea name="address" rows="5" cols="20" placeholder="Address" onChange={this.onChange}/>
 <input type="submit" className="button" value="Sign Up" onClick={this.signup}/>
 </TabPanel>
